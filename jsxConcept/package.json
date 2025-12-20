@@ -1,0 +1,17 @@
+{
+  "name": "jsxconcept",
+  "version": "1.0.0",
+  "description": "in this lecture we will discuss the topic of JSX",
+  "license": "ISC",
+  "author": "diwaker",
+  "type": "commonjs",
+  "scripts": {
+    "test": "jest",
+    "start":"npx parcel index.html"
+  },
+  "dependencies": {
+    "parcel": "^2.16.3",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  }
+}
