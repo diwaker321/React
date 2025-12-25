@@ -1,6 +1,10 @@
+import BodySection from "./Component/BodySection"
+import Heading from "./Component/Heading"
+
 const Applayout = ()=>{
     return <div>
-        <h1>hello everyone</h1>
+        <Heading/>
+        <BodySection/>
     </div>
 }
 
