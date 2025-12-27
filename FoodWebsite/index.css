@@ -131,3 +131,17 @@ body{
     gap: 50px;
     /* justify-content: space-between; */
 }
+
+.upperMainBody{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 40px;
+}
+.rated-btn{
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    /* outline: none; */
+    cursor: pointer;
+    border: none;
+}

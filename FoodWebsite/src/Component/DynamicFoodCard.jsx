@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CDN_URL } from "../utils/constant";
 
 const DynamicFoodCard = ({resObj})=>{
+    
     return (
         <div className='mainCont'>
         <div className='foodimg'>
