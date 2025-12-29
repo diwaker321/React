@@ -42,20 +42,13 @@ Q> ISKE BAD? AB KESE IS OBJECT KO ACCESS KRE?
 
 */
 
-const GIT_URL = "https://api.github.com/users/diwaker321"
-const users = fetch(GIT_URL)
-console.log(users)
+// const GIT_URL = "https://api.github.com/users/diwaker321"
+// const users = fetch(GIT_URL)
+// console.log(users)
 
-users.then((res)=>{
-    console.log(res)
-})
-
-
-
-
-
-
-
+// users.then((res)=>{
+//     console.log(res)
+// })
 
 
 
@@ -63,25 +56,71 @@ users.then((res)=>{
 
 // callback hell ke problem ko kese solve kr skte ho using promise
 
-const cart = ['shirts' , 'kurtas' , 'pants']
+// const cart = ['shirts' , 'kurtas' , 'pants']
 
-api.createOrder(cart , (orderid)=>{
-    api.proceedtopayment(orderid , (paymentinfo)=>{
-        api.showOrderSumery(paymentinfo , ()=>{
-            api.updateWallet()
-        })
-    })
-}) // this is the wrong approach
+// api.createOrder(cart , (orderid)=>{
+//     api.proceedtopayment(orderid , (paymentinfo)=>{
+//         api.showOrderSumery(paymentinfo , ()=>{
+//             api.updateWallet()
+//         })
+//     })
+// }) // this is the wrong approach
 
-// but in promise we can do like this 
+// // but in promise we can do like this 
 
-const promise = createorder(cart) // it gives us a orderid
+// const promise = createorder(cart) // it gives us a orderid
 
-promise.then((orderid)=>{
-   return proceedtopayment(orderid) // it gives us a paymentinfo
-}).then((paymentinfo)=>{
-    return showOrderSumery(paymentinfo)
-}).then(()=>{
-    return updateWallet()
+// promise.then((orderid)=>{
+//    return proceedtopayment(orderid) // it gives us a paymentinfo
+// }).then((paymentinfo)=>{
+//     return showOrderSumery(paymentinfo)
+// }).then(()=>{
+//     return updateWallet()
+// })
+
+
+
+
+
+// how to make promise using promise constructuor
+
+const cart = ['shirts' , 'pants','caps']
+
+const promise = creatOrder(cart)
+console.log(promise); // it gives the output of pending q ki javascript waits for none
+
+
+promise.then((orderId)=>{
+    console.log(orderId)
+// console.log(promise); // it gives the output of fulfilment q ki ye tb chla jb promise ke object me data aagya tha 
 })
+.catch((err)=>{
+    console.log(err.message)
+}) // this is how you can handled the errors gracefully
+
+
+// promise
+function creatOrder(cart){
+    const promise = new Promise((res , rej)=>{
+        if(!validateCart(cart)){
+            let error = new Error("Cart is not valid")
+            rej(error)
+        }else{
+            let orderId = 12345
+            setTimeout(()=>{
+                res(orderId)
+            },5000)
+        }
+
+    });
+
+    return promise
+
+}
+
+function validateCart(cart){
+    return true; // if you give return value false then it will throw the reject error in console which is not gracefully handled the error 
+}
+
+//to handles your errors gracefully make sure to use catch block 
 
