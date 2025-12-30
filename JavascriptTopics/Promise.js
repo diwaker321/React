@@ -87,12 +87,27 @@ Q> ISKE BAD? AB KESE IS OBJECT KO ACCESS KRE?
 const cart = ['shirts' , 'pants','caps']
 
 const promise = creatOrder(cart)
-console.log(promise); // it gives the output of pending q ki javascript waits for none
+// console.log(promise); // it gives the output of pending q ki javascript waits for none
 
 
-promise.then((orderId)=>{
-    console.log(orderId)
+
+
+                                            // this is the promise chaining
+promise.then((res)=>{
+    return res?.orderId
 // console.log(promise); // it gives the output of fulfilment q ki ye tb chla jb promise ke object me data aagya tha 
+})
+.catch((err)=>{
+    console.log(err.message)
+})
+.then((orderId)=>{
+    return proceedToPayment(orderId)
+})
+.catch((err)=>{
+    console.log(err.message)
+}) 
+.then((res)=>{
+    console.log(res)
 })
 .catch((err)=>{
     console.log(err.message)
@@ -107,15 +122,37 @@ function creatOrder(cart){
             rej(error)
         }else{
             let orderId = 12345
-            setTimeout(()=>{
-                res(orderId)
-            },5000)
+            // setTimeout(()=>{
+            //     res(orderId)
+            // },5000)
+            const orderdetails = {
+                orderId:'001',
+                orderStatus :'Done',
+                paymentMode:'Debit',
+                Amount : '15000'
+            }
+            res(orderdetails)
         }
 
     });
 
     return promise
 
+}
+
+//promise function for proceed to payment
+function proceedToPayment(id){
+
+    const promise = new Promise((res,rej)=>{
+        const orderId = Number(id)
+        if(!Number.isFinite(orderId)){ // check the type of data 
+            const err = new Error("id is not valid or it not be a number type ")
+            rej(err)
+        }else{
+            res('Payment Successfull')
+        }
+    })
+    return promise;
 }
 
 function validateCart(cart){
