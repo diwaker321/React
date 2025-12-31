@@ -128,30 +128,61 @@ async function get_Promise_async_way(){
 
 
 
-// change the timings of the set time out and see the results
+// // change the timings of the set time out and see the results
 
-const promise3 = new Promise((res , rej)=>{
-    setTimeout(()=>{
-        res('promise1 has been resolved in 10 second')
-    } ,10000)
-})
+// const promise3 = new Promise((res , rej)=>{
+//     setTimeout(()=>{
+//         res('promise1 has been resolved in 10 second')
+//     } ,10000)
+// })
 
-const promise4 = new Promise((res , rej)=>{
-    setTimeout(()=>{
-        res('promise2 has been resolved in 5 second')
-    } ,5000)
-})
+// const promise4 = new Promise((res , rej)=>{
+//     setTimeout(()=>{
+//         res('promise2 has been resolved in 5 second')
+//     } ,5000)
+// })
 
-async function guess_the_output_part2() {
-    console.log('the timer has been started');
+// async function guess_the_output_part2() {
+//     console.log('the timer has been started');
 
-    const pr1 = await promise3
-    console.log(pr1)
+//     const pr1 = await promise3
+//     console.log(pr1)
     
-    const pr2 = await promise4
-    console.log(pr2)
-}
+//     const pr2 = await promise4
+//     console.log(pr2)
+// }
 
-guess_the_output_part2() // only after 10 second both the output will be shown in the console 
-//aesa nhi hoga ki 5 sec bad phele pr2 print ho jayega 
-// pr2 have to wait for pr1 to be printed 
+// guess_the_output_part2() // only after 10 second both the output will be shown in the console 
+// //aesa nhi hoga ki 5 sec bad phele pr2 print ho jayega 
+// // pr2 have to wait for pr1 to be printed 
+
+
+
+
+
+
+
+// now we see how fetch works
+ /*
+    fetch return promise =====> 
+    then jo bhi response ata he usme we put .json() (this will also give us a promise) ===> 
+    then promise resolve krke we get the data
+ */
+
+ const GITHUB_URL = "https://api.github.com/users/diwaker321"
+ // this is the async way
+ async function handle_Fetch_Promise(){
+    const fetch_promise = await fetch(GITHUB_URL) // this will return the promise 
+   const git_data = await fetch_promise.json() // this will also give us a promise
+   console.log(git_data);
+ }
+ handle_Fetch_Promise()
+
+ /* this is the old promise way */
+
+ function handle_fetch_Old_Way(){
+     const fetch_promise = fetch(GITHUB_URL)
+     fetch_promise.then((res)=>res.json().then((res)=>console.log(res)))
+ }
+
+ handle_fetch_Old_Way()
