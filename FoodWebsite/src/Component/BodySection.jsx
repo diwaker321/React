@@ -98,20 +98,22 @@ ans) IN MONOLITH
 /* now we learn how we can fetch the data and make it dynamic */
 
 
-
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import resData from "../utils/dummyData";
+// import resData from "../utils/dummyData";
 import DynamicFoodCard from "./DynamicFoodCard";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Swiggy_URL } from "../utils/constant";
+import Shimmer from "./Shimmer";
 const BodySection = ()=>{
-    const [ resturantData , setResturantData] = useState(resData) 
+    const [ resturantData , setResturantData] = useState([]) 
+
     useEffect(()=>{ /* this use effect will be called once this component will be rendered and last me ye useeffect call ho jayega   */
         // console.log('i called in last');
         fetchSwiggyData()
     },[])
+
     // console.log('i called before the use effect console log');
 
 
@@ -128,11 +130,14 @@ const BodySection = ()=>{
         to bypass this cors issue 
             - install the extension in chrome i.e allow cors access
         */
-
-
     //setResturantData(apiJsonDta) // this will not give the data properly  you have to penetrate 
     setResturantData(apiJsonDta.data.cards[1].card.card.gridElements.infoWithStyle.restaurants) // after rendering ye dynamic data show ho jayega
     }
+
+    if(resturantData.length === 0){
+        return <Shimmer/>
+    }
+    
     
     return (
         <div className='mainBody'>
