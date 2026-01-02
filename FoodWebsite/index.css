@@ -35,6 +35,7 @@ body{
 }
 
 .itemsList{
+    align-items: center;
     display: flex;
     gap: 30px;
 }
@@ -204,4 +205,13 @@ body{
     /* outline: none; */
     cursor: pointer;
     border: none;
+}
+
+.btn{
+    border: none;
+    padding: 7px 15px;
+    cursor: pointer;
+}
+.btn:hover{
+    color: red;
 }

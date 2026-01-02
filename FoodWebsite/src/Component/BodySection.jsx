@@ -34,8 +34,12 @@
 // }
 // export default BodySection
 
+
+
+{
 /*
 WHY REACT IS SO FAST?
+
  ans) react is good at DOM manipulations
       basically it uses the reconciliation algorithm aka react fibre
 
@@ -56,13 +60,11 @@ WHY REACT IS SO FAST?
       after calculating the difference and it will then actually update the dom so fast 
       this algo is also known as react fibre
 */
-
-
-
-
+}
 
 /* in this section now we see how the data is coming from backend using fetch  */
 
+{
 /*
 first of all what is a monolith and microservice arch.
 ans) IN MONOLITH
@@ -94,6 +96,7 @@ ans) IN MONOLITH
      it will call the /backend domain
 
 */
+}
 
 /* now we learn how we can fetch the data and make it dynamic */
 
@@ -108,6 +111,8 @@ import { Swiggy_URL } from "../utils/constant";
 import Shimmer from "./Shimmer";
 const BodySection = ()=>{
     const [ resturantData , setResturantData] = useState([]) 
+    const [filterData , setFilterData] = useState([]) // this is for the search functionality
+    const [handleSearchInput , setHandleSearchInput] = useState("")
 
     useEffect(()=>{ /* this use effect will be called once this component will be rendered and last me ye useeffect call ho jayega   */
         // console.log('i called in last');
@@ -132,19 +137,39 @@ const BodySection = ()=>{
         */
     //setResturantData(apiJsonDta) // this will not give the data properly  you have to penetrate 
     setResturantData(apiJsonDta.data.cards[1].card.card.gridElements.infoWithStyle.restaurants) // after rendering ye dynamic data show ho jayega
+    setFilterData(apiJsonDta.data.cards[1].card.card.gridElements.infoWithStyle.restaurants)
     }
 
-    if(resturantData.length === 0){
-        return <Shimmer/>
+    const handleSearch = ()=>{
+        //write your filter logic
+        console.log(handleSearchInput)
+         const newFilterData = resturantData?.filter((res)=>res.info.name.toLowerCase().includes(handleSearchInput.toLowerCase()))
+         console.log(newFilterData);
+         setFilterData(newFilterData)
+         
+
     }
     
-    
-    return (
+    /* this is the concept of conditional rendering */
+    return resturantData.length === 0 ? <Shimmer/> :  (
         <div className='mainBody'>
             <div className=" upperMainBody">
             <div className='searchbarSection'>
-                <input type="search" className='searchinput' placeholder='Enter your Food'  />
-                <FontAwesomeIcon style={{cursor:'pointer'}} icon={faMagnifyingGlass} size="lg" color="gray" />
+                <input type="text"
+                 className='searchinput'
+                 placeholder='Enter your Food'
+                 value={handleSearchInput}
+                 onChange={(e)=>{
+                    setHandleSearchInput(e.target.value)
+                 }} /* you have to use this . if you want to see the results in search input   */
+                  />
+                <FontAwesomeIcon 
+                style={{cursor:'pointer'}}
+                 icon={faMagnifyingGlass}
+                size="lg"
+                color="gray"
+                onClick={handleSearch}
+                 />
             </div>
             
             <button className="rated-btn"onClick={()=>{
@@ -158,7 +183,7 @@ const BodySection = ()=>{
 
             </div>
             <div className='cardSection'>
-            {resturantData?.map((foodData)=>{
+            {filterData?.map((foodData)=>{
                 return <DynamicFoodCard resObj={foodData} key={foodData?.info?.id} />
             })}                
             </div>
