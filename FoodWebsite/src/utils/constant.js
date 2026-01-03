@@ -4,7 +4,7 @@ export const LOGO_URL ="https://png.pngtree.com/template/20190625/ourmid/pngtree
 
 // export const Swiggy_URL = "https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.3108256&lng=78.03444259999999&collection=83639&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null"
 
-export const Swiggy_URL ="https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.3108256&lng=78.03444259999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+export const Swiggy_URL ="https://corsproxy.io/https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.3108256&lng=78.03444259999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
 
 // this is how you can export muliple thing from a single file 
 // and when you import these variable jo multiple export hue he toh use {} these braces and inke andr un variables ko likh na 

@@ -174,21 +174,20 @@ const BodySection = ()=>{
             
             <button className="rated-btn"onClick={()=>{
                 const updatedData=resturantData.filter((res)=>{
-                    return res.info.avgRating > 4.2
+                    return res.info.avgRating >= 4.4
                 })
-                console.log(updatedData)
                 setResturantData(updatedData)
+                setFilterData(updatedData)
+                
 
             }}>Top Rated Resturants</button>
-
             </div>
             <div className='cardSection'>
             {filterData?.map((foodData)=>{
                 return <DynamicFoodCard resObj={foodData} key={foodData?.info?.id} />
             })}                
             </div>
-        </div>
-        
+        </div>      
     )
 }
 export default BodySection
