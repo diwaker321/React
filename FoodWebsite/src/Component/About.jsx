@@ -1,6 +1,11 @@
+import UserClass from "./UserClass"
 const About = ()=>{
     return <>
-    <h1>this is about section</h1>
+
+    <div className="classcomp">
+    <UserClass location ={"dehradun"}  Qualification = {"Masters in computer Application"} Experience = {"Full Stack Developer"}/>
+    </div>
+
     </>
 }
 

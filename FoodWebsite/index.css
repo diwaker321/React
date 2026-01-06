@@ -215,3 +215,32 @@ body{
 .btn:hover{
     color: red;
 }
+
+.classcomp{
+    width: 100%;
+    border: 1px solid black;
+    padding: 30px;
+    margin-top: 20px;
+}
+
+.classdiv{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-left: 2px;
+}
+
+.classbtn-style{
+    padding: 5px;
+    cursor: pointer;
+}
+
+.gitimg{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.gitimg > img{
+    border-radius: 60%;
+    width: 100%;
+}
