@@ -138,44 +138,30 @@ import React from "react"
 class UserClass extends React.Component{
     constructor(props){ 
         super(props)
-
-        this.state={
-            gitapiData: {
-            }
-        }
+        console.log("constructor is called");
+        
         
     }
 
-    async componentDidMount(){ // this is how we called the api
-        const data = await fetch("https://api.github.com/users/diwaker321")
-        const jsonData = await data.json()
-        console.log(jsonData); 
-        this.setState({
-            gitapiData:jsonData
-        })   
+     componentDidMount(){
+        console.log("component did mount is called");
     }
-    
 
-    
+    componentDidUpdate(){
+        console.log("component did update is called"); 
+    }
+
+    componentWillUnmount(){
+        console.log("this will called when the component will change");
+        
+    }
+
     render(){
-        const {location , Qualification , Experience}  = this.props
-        const {login , avatar_url , public_repos ,followers} = this.state.gitapiData
+        console.log("render is called");
+        
         
         return <>
         <h1>this is the class based component</h1>
-        <div style={{display:'flex' , alignItems:'center' , gap:'20px' , margin:"10px 0px"}}>
-        <div className="gitimg">
-        <img src={avatar_url} alt="" />
-        </div>
-        <div>
-        <p>Name : {login}</p>
-        <p>Public Repo : {public_repos}</p>
-        <p>Followers: {followers}</p>
-        </div>
-        </div>
-        <p>Location : {location}</p>
-        <p>Qualification : {Qualification}</p>
-        <p>Experience : {Experience}</p>
         </>
     }
 }

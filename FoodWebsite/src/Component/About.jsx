@@ -1,7 +1,18 @@
+import { useEffect } from "react"
 import UserClass from "./UserClass"
+import {RESTAURANT_MENU} from "../utils/constant"
 const About = ()=>{
-    return <>
+    useEffect(()=>{
+        getmenu()
+    },[])
 
+    async function getmenu(){
+        const data = await fetch(RESTAURANT_MENU)
+        const jsondata = await data.json()
+        console.log(jsondata);
+        
+    }
+    return <>
     <div className="classcomp">
     <UserClass location ={"dehradun"}  Qualification = {"Masters in computer Application"} Experience = {"Full Stack Developer"}/>
     </div>
