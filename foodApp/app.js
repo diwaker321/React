@@ -1729,24 +1729,25 @@ const Foodcard = (props)=>{
 
 //this is the dynamic way of making the card
 const DynamicFoodCard = ({resObj})=>{
-    console.log('resObj: ', resObj);
+    const{name,aggregatedDiscountInfoV3,avgRatingString,sla,cloudinaryImageId,cuisines,areaName} = resObj?.info // object destructuring
     return (
         <div className='mainCont'>
         <div className='foodimg'>
-            <img src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" + resObj?.info?.cloudinaryImageId} alt=""/>
-            <h3 className='imgtext'>{resObj?.info?.aggregatedDiscountInfoV3 ? `${resObj?.info?.aggregatedDiscountInfoV3.header} ${resObj?.info?.aggregatedDiscountInfoV3?.subHeader}` : null }</h3>
+            <img src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" + cloudinaryImageId} alt=""/>
+            <h3 className='imgtext'>{aggregatedDiscountInfoV3 ? `${aggregatedDiscountInfoV3.header} ${aggregatedDiscountInfoV3?.subHeader}` : null }</h3>
         </div>
         <div className='foodContent'>
-            <h2>{resObj?.info?.name}</h2>
+            <h2>{name}</h2>
             <div className="ratingsection">
               <FontAwesomeIcon icon={faStar} />
-              <p>{resObj?.info?.avgRatingString}</p>
+              <p>{avgRatingString}</p>
               <span>.</span>
-              <span>{resObj?.info?.sla?.deliveryTime} mins</span>
+              <span>{sla?.deliveryTime} mins</span>
             </div>
             <div className='subheadingSection'>
-                <p>{resObj?.info?.cuisines[0]}</p>
-                <p>{resObj?.info?.areaName}</p>
+                <p className='cuisines'>{cuisines.join()}</p>
+                
+                <p>{areaName}</p>
             </div>
         </div>
 
@@ -1771,45 +1772,12 @@ const BodySection = ()=>{
                  subtext = "Pizzas"
                  address = "Nehru Nagar"
                 /> */}
-                <DynamicFoodCard 
-                 resObj = {resData[0]}
-                /> 
-                                <DynamicFoodCard 
-                 resObj = {resData[1]}
-                /> 
-                                <DynamicFoodCard 
-                 resObj = {resData[2]}
-                /> 
-                                <DynamicFoodCard 
-                 resObj = {resData[3]}
-                /> 
-                                <DynamicFoodCard 
-                 resObj = {resData[4]}
-                /> 
-                                <DynamicFoodCard 
-                 resObj = {resData[5]}
-                /> 
-                                <DynamicFoodCard 
-                 resObj = {resData[6]}
-                /> 
-                                <DynamicFoodCard 
-                 resObj = {resData[7]}
-                /> 
-                                <DynamicFoodCard 
-                 resObj = {resData[8]}
-                /> 
-                                <DynamicFoodCard 
-                 resObj = {resData[9]}
-                /> 
-                                <DynamicFoodCard 
-                 resObj = {resData[10]}
-                /> 
-                                <DynamicFoodCard 
-                 resObj = {resData[11]}
-                /> 
-                                <DynamicFoodCard 
-                 resObj = {resData[12]}
-                />                
+
+                
+                {
+                    resData.map((resturant ,index)=><DynamicFoodCard resObj={resturant} key={index} />
+                    )
+                }
             </div>
         </div>
         

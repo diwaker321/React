@@ -107,48 +107,68 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DynamicFoodCard from "./DynamicFoodCard";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Swiggy_URL } from "../utils/constant";
+// import { Swiggy_URL } from "../utils/constant";
 import Shimmer from "./Shimmer";
+import useFetch from "../utils/useFetch";
+import useOnlineStatus from "../utils/useOnlineStatus";
 const BodySection = ()=>{
     const [ resturantData , setResturantData] = useState([]) 
     const [filterData , setFilterData] = useState([]) // this is for the search functionality
     const [handleSearchInput , setHandleSearchInput] = useState("")
 
-    useEffect(()=>{ /* this use effect will be called once this component will be rendered and last me ye useeffect call ho jayega   */
-        // console.log('i called in last');
-        fetchSwiggyData()
-    },[])
+{
+
+    // useEffect(()=>{ /* this use effect will be called once this component will be rendered and last me ye useeffect call ho jayega   */
+    //     // console.log('i called in last');
+    //     fetchSwiggyData()
+    // },[])
+
 
     // console.log('i called before the use effect console log');
 
 
-    async function fetchSwiggyData(){
-        const ApiData = await fetch(Swiggy_URL)
-        const apiJsonDta = await ApiData.json()
-        // console.log(apiJsonDta.data.cards[1].card.card.gridElements.infoWithStyle.restaurants)
-        /*
-        THIS GIVES YOU THE ERROR 
+    // async function fetchSwiggyData(){
+    //     const ApiData = await fetch(Swiggy_URL)
+    //     const apiJsonDta = await ApiData.json()
+    //     // console.log(apiJsonDta.data.cards[1].card.card.gridElements.infoWithStyle.restaurants)
+    //     /*
+    //     THIS GIVES YOU THE ERROR 
 
-        due to the CORS POLICY 
-            - the browser did not allow you to access the api from localhost (i.e from one origin to another origin )
+    //     due to the CORS POLICY 
+    //         - the browser did not allow you to access the api from localhost (i.e from one origin to another origin )
         
-        to bypass this cors issue 
-            - install the extension in chrome i.e allow cors access
-        */
-    //setResturantData(apiJsonDta) // this will not give the data properly  you have to penetrate 
-    setResturantData(apiJsonDta.data.cards[1].card.card.gridElements.infoWithStyle.restaurants) // after rendering ye dynamic data show ho jayega
-    setFilterData(apiJsonDta.data.cards[1].card.card.gridElements.infoWithStyle.restaurants)
-    }
+    //     to bypass this cors issue 
+    //         - install the extension in chrome i.e allow cors access
+    //     */
+    // //setResturantData(apiJsonDta) // this will not give the data properly  you have to penetrate 
+    // setResturantData(apiJsonDta.data.cards[1].card.card.gridElements.infoWithStyle.restaurants) // after rendering ye dynamic data show ho jayega
+    // setFilterData(apiJsonDta.data.cards[1].card.card.gridElements.infoWithStyle.restaurants)
+    // }
+
+}
+
+    const data = useFetch()  /* this is the custom hook  */   /* the only work of this hook is to fetch the restaurent data */     
+
+    useEffect(()=>{
+        if(data){
+            setResturantData(data) 
+            setFilterData(data)
+        }
+    },[data])
+
 
     const handleSearch = ()=>{
         //write your filter logic
-        console.log(handleSearchInput)
          const newFilterData = resturantData?.filter((res)=>res.info.name.toLowerCase().includes(handleSearchInput.toLowerCase()))
-         console.log(newFilterData);
-         setFilterData(newFilterData)
-         
-
+         setFilterData(newFilterData)  
     }
+
+    
+    const onlineStatus = useOnlineStatus()
+    console.log('onlineStatus: ', onlineStatus);
+    if (onlineStatus=== false) return<h1> Looks You Are Offline. Please Check the network and Try Again </h1>
+
+    
     
     /* this is the concept of conditional rendering */
     return resturantData.length === 0 ? <Shimmer/> :  (
