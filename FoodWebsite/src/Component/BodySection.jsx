@@ -148,6 +148,7 @@ const BodySection = ()=>{
 }
 
     const data = useFetch()  /* this is the custom hook  */   /* the only work of this hook is to fetch the restaurent data */     
+    console.log('data: ', data);
 
     useEffect(()=>{
         if(data){
@@ -172,11 +173,11 @@ const BodySection = ()=>{
     
     /* this is the concept of conditional rendering */
     return resturantData.length === 0 ? <Shimmer/> :  (
-        <div className='mainBody'>
-            <div className=" upperMainBody">
-            <div className='searchbarSection'>
+        <div className='mainBody !p-[15px]'>
+            <div className=" upperMainBody flex justify-between !pr-[40px]">
+            <div className='searchbarSection flex items-center !gap-[5px]'>
                 <input type="text"
-                 className='searchinput'
+                 className='searchinput w-[19vw] !p-[4px] rounded-sm  border border-black'
                  placeholder='Enter your Food'
                  value={handleSearchInput}
                  onChange={(e)=>{
@@ -184,7 +185,7 @@ const BodySection = ()=>{
                  }} /* you have to use this . if you want to see the results in search input   */
                   />
                 <FontAwesomeIcon 
-                style={{cursor:'pointer'}}
+                className="cursor-pointer"
                  icon={faMagnifyingGlass}
                 size="lg"
                 color="gray"
@@ -192,17 +193,16 @@ const BodySection = ()=>{
                  />
             </div>
             
-            <button className="rated-btn"onClick={()=>{
+            <button className="rated-btn cursor-pointer border border-black rounded-sm !p-[10px] text-[15px]"onClick={()=>{
                 const updatedData=resturantData.filter((res)=>{
                     return res.info.avgRating >= 4.4
                 })
                 setResturantData(updatedData)
                 setFilterData(updatedData)
                 
-
             }}>Top Rated Resturants</button>
             </div>
-            <div className='cardSection'>
+            <div className='cardSection flex !mt-[10px] w-[100%] items-center flex-wrap  !gap-[50px]'>
             {filterData?.map((foodData)=>{
                 return <DynamicFoodCard resObj={foodData} key={foodData?.info?.id} />
             })}                

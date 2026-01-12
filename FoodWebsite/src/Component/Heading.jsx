@@ -9,12 +9,12 @@ const Heading = ()=>{
         
     }
     return (
-    <div className='headerSection'>
-        <div className='logoSection'>
-            <img src={LOGO_URL}/>
+    <div className='headerSection flex justify-between items-center w-full border-b-[1.5px] border-black px-[10px] py-0'>
+        <div className='logoSection w-[70px]'>
+            <img className="w-100 rounded-full" src={LOGO_URL}/>
         </div>
         <div className='itemsSection'>
-            <ul className='itemsList'>
+            <ul className=' itemsList !flex items-center gap-[30px] '>
                <Link to="/"> <li>Home</li></Link>
                <Link to="/about"> <li>About Us</li> </Link>
                <Link to="/contact"> <li>Contact Us</li></Link>
