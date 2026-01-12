@@ -101,54 +101,158 @@ ans) IN MONOLITH
 /* now we learn how we can fetch the data and make it dynamic */
 
 
+// import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// // import resData from "../utils/dummyData";
+// import DynamicFoodCard , {eahanceFoodCard} from "./DynamicFoodCard";
+// import { useState } from "react";
+// import { useEffect } from "react";
+// import { Swiggy_URL } from "../utils/constant";
+// import Shimmer from "./Shimmer";
+// import useFetch from "../utils/useFetch";
+// import useOnlineStatus from "../utils/useOnlineStatus";
+// const BodySection = ()=>{
+//     const [ resturantData , setResturantData] = useState([]) 
+//     const [filterData , setFilterData] = useState([]) // this is for the search functionality
+//     const [handleSearchInput , setHandleSearchInput] = useState("")
+
+// {
+
+//     // useEffect(()=>{ /* this use effect will be called once this component will be rendered and last me ye useeffect call ho jayega   */
+//     //     // console.log('i called in last');
+//     //     fetchSwiggyData()
+//     // },[])
+
+
+//     // console.log('i called before the use effect console log');
+
+
+//     // async function fetchSwiggyData(){
+//     //     const ApiData = await fetch(Swiggy_URL)
+//     //     const apiJsonDta = await ApiData.json()
+//     //     // console.log(apiJsonDta.data.cards[1].card.card.gridElements.infoWithStyle.restaurants)
+//     //     /*
+//     //     THIS GIVES YOU THE ERROR 
+
+//     //     due to the CORS POLICY 
+//     //         - the browser did not allow you to access the api from localhost (i.e from one origin to another origin )
+        
+//     //     to bypass this cors issue 
+//     //         - install the extension in chrome i.e allow cors access
+//     //     */
+//     // //setResturantData(apiJsonDta) // this will not give the data properly  you have to penetrate 
+//     // setResturantData(apiJsonDta.data.cards[1].card.card.gridElements.infoWithStyle.restaurants) // after rendering ye dynamic data show ho jayega
+//     // setFilterData(apiJsonDta.data.cards[1].card.card.gridElements.infoWithStyle.restaurants)
+//     // }
+
+// }
+
+//     const data = useFetch()  /* this is the custom hook  */   /* the only work of this hook is to fetch the restaurent data */     
+//     // console.log('resturantData: ', resturantData[2].info.veg);
+//     // console.log('data: ', data?);
+
+
+//     const VegFoodCard = eahanceFoodCard(DynamicFoodCard)
+
+//     useEffect(()=>{
+//         if(data){
+//             setResturantData(data) 
+//             setFilterData(data)
+//         }
+//     },[data])
+
+
+//     const handleSearch = ()=>{
+//         //write your filter logic
+//          const newFilterData = resturantData?.filter((res)=>res.info.name.toLowerCase().includes(handleSearchInput.toLowerCase()))
+//          setFilterData(newFilterData)  
+//     }
+
+    
+//     const onlineStatus = useOnlineStatus()
+//     if (onlineStatus=== false) return<h1> Looks You Are Offline. Please Check the network and Try Again </h1>
+
+    
+    
+//     /* this is the concept of conditional rendering */
+//     return resturantData.length === 0 ? <Shimmer/> :  (
+//         <div className='mainBody !p-[15px]'>
+//             <div className=" upperMainBody flex justify-between !pr-[40px]">
+//             <div className='searchbarSection flex items-center !gap-[5px]'>
+//                 <input type="text"
+//                  className='searchinput w-[19vw] !p-[4px] rounded-sm  border border-black'
+//                  placeholder='Enter your Food'
+//                  value={handleSearchInput}
+//                  onChange={(e)=>{
+//                     setHandleSearchInput(e.target.value)
+//                  }} /* you have to use this . if you want to see the results in search input   */
+//                   />
+//                 <FontAwesomeIcon 
+//                 className="cursor-pointer"
+//                  icon={faMagnifyingGlass}
+//                 size="lg"
+//                 color="gray"
+//                 onClick={handleSearch}
+//                  />
+//             </div>
+            
+//             <button className="rated-btn cursor-pointer border border-black rounded-sm !p-[10px] text-[15px]"onClick={()=>{
+//                 const updatedData=resturantData.filter((res)=>{
+//                     return res.info.avgRating >= 4.4
+//                 })
+//                 setResturantData(updatedData)
+//                 setFilterData(updatedData)
+                
+//             }}>Top Rated Resturants</button>
+//             </div>
+//             <div className='cardSection flex !mt-[10px] w-[100%] items-center flex-wrap  !gap-[50px]'>
+//             {filterData?.map((foodData)=>{
+//                 return (
+//                     <>
+//                     {foodData?.info?.veg ? <VegFoodCard resObj={foodData} key={foodData?.info?.id} /> : <DynamicFoodCard resObj={foodData} key={foodData?.info?.id} /> }
+                
+//                     </>
+//                 ) 
+                    
+//             })}                
+//             </div>
+//         </div>      
+//     )
+// }
+// export default BodySection
+
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import resData from "../utils/dummyData";
-import DynamicFoodCard from "./DynamicFoodCard";
+import DynamicFoodCard , {eahanceFoodCard} from "./DynamicFoodCard";
 import { useState } from "react";
 import { useEffect } from "react";
-// import { Swiggy_URL } from "../utils/constant";
+import { Swiggy_URL } from "../utils/constant";
 import Shimmer from "./Shimmer";
 import useFetch from "../utils/useFetch";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import WhatsOnYourMind from "./WhatsOnYourMind";
 const BodySection = ()=>{
     const [ resturantData , setResturantData] = useState([]) 
-    const [filterData , setFilterData] = useState([]) // this is for the search functionality
+    const [filterData , setFilterData] = useState([]) 
     const [handleSearchInput , setHandleSearchInput] = useState("")
+    const [resinfo , setresinfo] = useState([])    
 
-{
+            useEffect(()=>{ 
+                    fetchSwiggyData()
+                },[])
+            
+                async function fetchSwiggyData(){
+                    const ApiData = await fetch(Swiggy_URL)
+                    const apiJsonDta = await ApiData.json()
+                    setresinfo(apiJsonDta.data.cards)
 
-    // useEffect(()=>{ /* this use effect will be called once this component will be rendered and last me ye useeffect call ho jayega   */
-    //     // console.log('i called in last');
-    //     fetchSwiggyData()
-    // },[])
+                }
 
+    const categories = resinfo?.filter((data) => data?.card?.card?.["@type"] === "type.googleapis.com/swiggy.gandalf.widgets.v2.GridWidget")    
+         
+    const data = useFetch()  
 
-    // console.log('i called before the use effect console log');
-
-
-    // async function fetchSwiggyData(){
-    //     const ApiData = await fetch(Swiggy_URL)
-    //     const apiJsonDta = await ApiData.json()
-    //     // console.log(apiJsonDta.data.cards[1].card.card.gridElements.infoWithStyle.restaurants)
-    //     /*
-    //     THIS GIVES YOU THE ERROR 
-
-    //     due to the CORS POLICY 
-    //         - the browser did not allow you to access the api from localhost (i.e from one origin to another origin )
-        
-    //     to bypass this cors issue 
-    //         - install the extension in chrome i.e allow cors access
-    //     */
-    // //setResturantData(apiJsonDta) // this will not give the data properly  you have to penetrate 
-    // setResturantData(apiJsonDta.data.cards[1].card.card.gridElements.infoWithStyle.restaurants) // after rendering ye dynamic data show ho jayega
-    // setFilterData(apiJsonDta.data.cards[1].card.card.gridElements.infoWithStyle.restaurants)
-    // }
-
-}
-
-    const data = useFetch()  /* this is the custom hook  */   /* the only work of this hook is to fetch the restaurent data */     
-    console.log('data: ', data);
+    const VegFoodCard = eahanceFoodCard(DynamicFoodCard)
 
     useEffect(()=>{
         if(data){
@@ -159,21 +263,22 @@ const BodySection = ()=>{
 
 
     const handleSearch = ()=>{
-        //write your filter logic
          const newFilterData = resturantData?.filter((res)=>res.info.name.toLowerCase().includes(handleSearchInput.toLowerCase()))
          setFilterData(newFilterData)  
     }
 
     
     const onlineStatus = useOnlineStatus()
-    console.log('onlineStatus: ', onlineStatus);
     if (onlineStatus=== false) return<h1> Looks You Are Offline. Please Check the network and Try Again </h1>
 
     
     
-    /* this is the concept of conditional rendering */
     return resturantData.length === 0 ? <Shimmer/> :  (
         <div className='mainBody !p-[15px]'>
+        
+        <WhatsOnYourMind data ={categories}/>
+
+        
             <div className=" upperMainBody flex justify-between !pr-[40px]">
             <div className='searchbarSection flex items-center !gap-[5px]'>
                 <input type="text"
@@ -182,11 +287,11 @@ const BodySection = ()=>{
                  value={handleSearchInput}
                  onChange={(e)=>{
                     setHandleSearchInput(e.target.value)
-                 }} /* you have to use this . if you want to see the results in search input   */
+                 }}
                   />
                 <FontAwesomeIcon 
                 className="cursor-pointer"
-                 icon={faMagnifyingGlass}
+                icon={faMagnifyingGlass}
                 size="lg"
                 color="gray"
                 onClick={handleSearch}
@@ -204,7 +309,11 @@ const BodySection = ()=>{
             </div>
             <div className='cardSection flex !mt-[10px] w-[100%] items-center flex-wrap  !gap-[50px]'>
             {filterData?.map((foodData)=>{
-                return <DynamicFoodCard resObj={foodData} key={foodData?.info?.id} />
+                return (
+                    <>
+                    {foodData?.info?.veg ? <VegFoodCard resObj={foodData} key={foodData?.info?.id} /> : <DynamicFoodCard resObj={foodData} key={foodData?.info?.id} /> }
+                    </>
+                )  
             })}                
             </div>
         </div>      

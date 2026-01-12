@@ -27,4 +27,15 @@ const DynamicFoodCard = ({resObj})=>{
         </div>
     )
 }
+
+export  const eahanceFoodCard = (DynamicFoodCard)=>{
+    return (props)=>{
+        return (
+            <div className="flex flex-col relative">
+                <p className=" bg-black text-amber-50 rounded !py-1 !px-5 absolute z-10 top-2 left-1 ">veg</p>
+                <DynamicFoodCard {...props} />  
+            </div>
+        )
+    }
+}
 export default DynamicFoodCard
