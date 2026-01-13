@@ -10,6 +10,8 @@ export const Swiggy_URL ="https://corsproxy.io/https://www.swiggy.com/dapi/resta
 
 export const RESTAURANT_MENU = "https://corsproxy.io/https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.256554&lng=78.094036&collection=83631&tags=layout_CCS_Pizza&sortBy=&filters=&type=rcv2&offset=0&page_type=null"
 
+export const DUMMY_MENU_DATA = "https://corsproxy.io/https://namastedev.com/api/v1/listRestaurantMenu/"
+
 // this is how you can export muliple thing from a single file 
 // and when you import these variable jo multiple export hue he toh use {} these braces and inke andr un variables ko likh na 
 // use cors proxy io agr live krke apne project ko dusre ke screen me bhi chalana chate ho https://corsproxy.io/

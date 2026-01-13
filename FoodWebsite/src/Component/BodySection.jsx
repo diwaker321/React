@@ -231,6 +231,7 @@ import Shimmer from "./Shimmer";
 import useFetch from "../utils/useFetch";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import WhatsOnYourMind from "./WhatsOnYourMind";
+import { Link } from "react-router-dom";
 const BodySection = ()=>{
     const [ resturantData , setResturantData] = useState([]) 
     const [filterData , setFilterData] = useState([]) 
@@ -311,7 +312,9 @@ const BodySection = ()=>{
             {filterData?.map((foodData)=>{
                 return (
                     <>
-                    {foodData?.info?.veg ? <VegFoodCard resObj={foodData} key={foodData?.info?.id} /> : <DynamicFoodCard resObj={foodData} key={foodData?.info?.id} /> }
+                    <Link to="/restaurents/123456" key={foodData?.info?.id}>
+                    {foodData?.info?.veg ?<VegFoodCard resObj={foodData}/>  :  <DynamicFoodCard resObj={foodData}/>  }
+                    </Link>
                     </>
                 )  
             })}                
