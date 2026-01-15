@@ -1,12 +1,14 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { LOGO_URL } from "../utils/constant"
 import { Link } from "react-router-dom"
+import userinfo from "../utils/UserDetailsContext"
 
 const Heading = ()=>{
+    const userDetails = useContext(userinfo)
+    // console.log('userDetails: ', userDetails);
     let [handleButtonIinput , setHandleButtonInput] = useState("LOGIN")
     const handleInput = (e)=>{
-        handleButtonIinput ==="LOGOUT"? setHandleButtonInput('LOGIN') : setHandleButtonInput('LOGOUT')    
-        
+        handleButtonIinput ==="LOGOUT"? setHandleButtonInput('LOGIN') : setHandleButtonInput('LOGOUT')       
     }
     return (
     <div className='headerSection flex justify-between items-center w-full border-b-[1.5px] border-black px-[10px] py-0'>
@@ -20,6 +22,7 @@ const Heading = ()=>{
                <Link to="/contact"> <li>Contact Us</li></Link>
                 <li>Cart</li>
                 <button className="btn" onClick={handleInput}>{handleButtonIinput}</button>
+                <li>{userDetails?.userData?.name}</li>
             </ul>
         </div>
     </div>

@@ -229,7 +229,7 @@ ans) IN MONOLITH
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DynamicFoodCard , {eahanceFoodCard} from "./DynamicFoodCard";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useEffect } from "react";
 import { Swiggy_URL } from "../utils/constant";
 import Shimmer from "./Shimmer";
@@ -237,11 +237,15 @@ import useFetch from "../utils/useFetch";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import WhatsOnYourMind from "./WhatsOnYourMind";
 import { Link } from "react-router-dom";
+import userinfo from "../utils/UserDetailsContext";
 const BodySection = ()=>{
     const [ resturantData , setResturantData] = useState([]) 
     const [filterData , setFilterData] = useState([]) 
     const [handleSearchInput , setHandleSearchInput] = useState("")
-    const [resinfo , setresinfo] = useState([])    
+    const [resinfo , setresinfo] = useState([]) 
+    
+    // const userData = useContext(userinfo)
+    const {userData , setData} = useContext(userinfo)
 
             useEffect(()=>{ 
                     fetchSwiggyData()
@@ -302,6 +306,11 @@ const BodySection = ()=>{
                 color="gray"
                 onClick={handleSearch}
                  />
+
+                 <div>
+                 <label className="!ml-2" >Change UserName : </label>
+                        <input type="text" className="border rounded-md !p-1" value={userData?.name} onChange={(e)=>setData((prev)=>({...prev , name:e.target.value}))}  />
+                 </div>
             </div>
             
             <button className="rated-btn cursor-pointer border border-black rounded-sm !p-[10px] text-[15px]"onClick={()=>{
@@ -312,15 +321,16 @@ const BodySection = ()=>{
                 setFilterData(updatedData)
                 
             }}>Top Rated Resturants</button>
+
             </div>
             <div className='cardSection flex !mt-[10px] w-[100%] items-center flex-wrap  !gap-[50px]'>
             {filterData?.map((foodData)=>{
                 return (
-                    <>
-                    <Link to="/restaurents/123456" key={foodData?.info?.id}>
+                    <div key={foodData?.info?.id}>
+                    <Link to="/restaurents/123456" >
                     {foodData?.info?.veg ?<VegFoodCard resObj={foodData}/>  :  <DynamicFoodCard resObj={foodData}/>  }
                     </Link>
-                    </>
+                    </div>
                 )  
             })}                
             </div>

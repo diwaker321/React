@@ -135,6 +135,7 @@
 /* Now we learn about the code flow ki phele ky chlta he */
 
 import React from "react"
+import userinfo from "../utils/UserDetailsContext"
 class UserClass extends React.Component{
     constructor(props){ 
         super(props)
@@ -162,6 +163,19 @@ class UserClass extends React.Component{
         
         return <>
         <h1>this is the class based component</h1>
+        {/* this is how you use the usecontext in class based component  */}
+        <userinfo.Consumer> 
+        {(data)=>{
+            return (
+            <div>
+                <p>Name:{data?.name}</p>
+                <p>Course : {data?.course}</p>
+                <p>Fee : {data?.courseFee}</p>
+            </div>
+            )
+        }}
+
+        </userinfo.Consumer>
         </>
     }
 }

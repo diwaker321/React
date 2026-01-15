@@ -7,6 +7,12 @@ import RestaurantMenu from "./RestaurantMenu";
 const FoodDetails = ()=>{ 
     const [resdata , setResData] = useState({}) 
     const[menuData , setMenuData] = useState([])
+    const [showIndex , setShowIndex] = useState(0)
+
+    // function handleToggle(){
+    //     open === true ? setOpen(false) : setOpen(true)
+    // }
+    // console.log('open: ', open);
 
     useEffect(()=>{ 
     fetchDummyData()
@@ -21,8 +27,7 @@ const FoodDetails = ()=>{
     setResData(apidata?.data?.cards?.[2]?.card?.card?.info)
     }
 
-    const {name ,cuisines,costForTwo,cloudinaryImageId,avgRating,areaName,locality,sla,totalRatingsString} = resdata
-    const {itemCards = [] , title = ""} = menuData?.[1]?.card?.card || {}
+    const {name ,cuisines,costForTwo} = resdata
 
     const categories = menuData?.filter((item)=>(
         item?.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
@@ -35,17 +40,9 @@ const FoodDetails = ()=>{
                 <p className="font-bold">{cuisines?.join(" , ")}</p>
                 <p className="font-bold">{costForTwo}</p>
                 </div>
-
-                {/* <p className="font-bold">{title}</p>
-                {itemCards?.map((items)=>(
-                    <div className="flex justify-center" key={items?.card?.info?.id}>
-                    <p className="text-md" >{items?.card?.info?.name}</p>
-                    <p className="text-md">{items?.card?.info?.price/100} Rs </p>
-                    </div>
-                ))} */}
                 {/* make a accordian   */}
-                {categories?.map((res)=>(
-                    <RestaurantMenu Menudata = {res}/>
+                {categories?.map((res , index)=>(
+                    <RestaurantMenu Menudata = {res} isOpen = {index === showIndex ? true : false} setShowIndex = {()=>setShowIndex(index)}/>
                 ))}
             </div>
     )

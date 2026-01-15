@@ -1,17 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import RestaurantItems from "./RestaurantItems";
-const RestaurantMenu = ({Menudata})=>{
+const RestaurantMenu = ({Menudata , isOpen , setShowIndex})=>{
     const {title} = Menudata?.card?.card
+    function handleToggle(){
+        setShowIndex()
+    }
     return (
         <>
-        <div className="bg-gray-100 !mx-auto !my-2 shadow-sm rounded-md !p-2 w-8/12 ">
-        <div className="flex justify-center">
-        <p>{title}</p>
-        <p>({Menudata?.card?.card?.itemCards?.length})</p>
+        <div className="bg-gray-50 !mx-auto coardian-header shadow-sm rounded-md !p-2 w-6/12 ">
+        <div className="flex justify-center cursor-pointer" onClick={handleToggle} >
+        <p className="font-bold text-xl">{title}</p>
+        <p className="font-bold text-xl">({Menudata?.card?.card?.itemCards?.length})</p>
         </div>
 
         {/* component for restaurant menus  */}
-        <RestaurantItems  itemData = {Menudata?.card?.card?.itemCards}/>
+        {isOpen && <RestaurantItems  itemData = {Menudata?.card?.card?.itemCards}/> }   
         </div>
         </>
     )

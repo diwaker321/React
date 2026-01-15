@@ -9,7 +9,6 @@ const About = ()=>{
     async function getmenu(){
         const data = await fetch(RESTAURANT_MENU)
         const jsondata = await data.json()
-        console.log(jsondata);
         
     }
     return <>
