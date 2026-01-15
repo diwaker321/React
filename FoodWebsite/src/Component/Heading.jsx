@@ -2,8 +2,16 @@ import { useContext, useState } from "react"
 import { LOGO_URL } from "../utils/constant"
 import { Link } from "react-router-dom"
 import userinfo from "../utils/UserDetailsContext"
+import { useSelector } from "react-redux"
 
 const Heading = ()=>{
+
+    //subscribing to the store using a selector
+
+    const cartItems = useSelector((store)=>store?.cart?.items)
+    // console.log('cartItems: ', cartItems);
+
+
     const userDetails = useContext(userinfo)
     // console.log('userDetails: ', userDetails);
     let [handleButtonIinput , setHandleButtonInput] = useState("LOGIN")
@@ -20,7 +28,7 @@ const Heading = ()=>{
                <Link to="/"> <li>Home</li></Link>
                <Link to="/about"> <li>About Us</li> </Link>
                <Link to="/contact"> <li>Contact Us</li></Link>
-                <li>Cart</li>
+                <li>Cart ({cartItems.length}) items</li>
                 <button className="btn" onClick={handleInput}>{handleButtonIinput}</button>
                 <li>{userDetails?.userData?.name}</li>
             </ul>

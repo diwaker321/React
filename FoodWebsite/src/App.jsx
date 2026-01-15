@@ -19,9 +19,11 @@ import BodySection from "./Component/BodySection"
 import Heading from "./Component/Heading"
 import userinfo from "./utils/UserDetailsContext"
 import { useContext, useEffect, useState } from "react"
+import  {Provider} from "react-redux"
+import appStore from "./utils/appStore"
 
 const Applayout = ()=>{
-    const contextdata = useContext(userinfo)
+    // const contextdata = useContext(userinfo)
     // console.log('contextdata: ', contextdata);
     const [userData , setData] = useState()
     useEffect(()=>{
@@ -34,11 +36,12 @@ const Applayout = ()=>{
     },[])
 
     return <div>
+    <Provider store={appStore}>
     <userinfo.Provider value={{userData , setData}}> 
         <Heading/>
         <Outlet/>
     </userinfo.Provider>
-        
+    </Provider>
     </div>
 }
 
