@@ -28,7 +28,7 @@ const Heading = ()=>{
                <Link to="/"> <li>Home</li></Link>
                <Link to="/about"> <li>About Us</li> </Link>
                <Link to="/contact"> <li>Contact Us</li></Link>
-                <li>Cart ({cartItems.length}) items</li>
+               <Link to="/cart"> <li>Cart ({cartItems.length}) items</li></Link>
                 <button className="btn" onClick={handleInput}>{handleButtonIinput}</button>
                 <li>{userDetails?.userData?.name}</li>
             </ul>

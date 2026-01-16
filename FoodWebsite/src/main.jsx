@@ -8,6 +8,7 @@ import Error from './Component/Error.jsx'
 import BodySection from './Component/BodySection.jsx'
 import FoodDetails from './Component/FoodDetails.jsx'
 import { lazy, Suspense } from 'react'
+import Cart from './Component/Cart.jsx'
 
 const About = lazy(()=>import('./Component/About.jsx')) // why this lazy loading is used for
 
@@ -31,7 +32,10 @@ const appRouter = createBrowserRouter([ // this is for the routing configuration
             {
                 path:'/restaurents/:resid',
                 element:<FoodDetails/>
-
+            },
+            {
+                path:'/cart',
+                element:<Cart/>
             }
         ],
         errorElement:<Error/>

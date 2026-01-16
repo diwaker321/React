@@ -14,7 +14,7 @@ const RestaurantMenu = ({Menudata , isOpen , setShowIndex})=>{
         </div>
 
         {/* component for restaurant menus  */}
-        {isOpen && <RestaurantItems  itemData = {Menudata?.card?.card?.itemCards}/> }   
+        {isOpen && <RestaurantItems  itemData = {Menudata?.card?.card?.itemCards} showAddButton = {true}/> }   
         </div>
         </>
     )

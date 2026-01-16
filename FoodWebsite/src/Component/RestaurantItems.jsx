@@ -1,9 +1,17 @@
 import { CDN_URL } from "../utils/constant";
 import { useContext } from "react";
 import userinfo from "../utils/UserDetailsContext";
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice";
 
-const RestaurantItems = ({itemData})=>{
-    const userDetails = useContext(userinfo)
+
+const RestaurantItems = ({itemData ,showAddButton})=>{
+
+    const dispatch = useDispatch()
+    const handleAddFeature = (res)=>{
+        console.log(res);
+        dispatch(addItem(res))
+    }
     return (
         <>
         {itemData?.map((res)=>(
@@ -11,7 +19,9 @@ const RestaurantItems = ({itemData})=>{
             <div className="flex !py-2">
             <div className="w-3/12 relative">
                 <img  className="w-100 rounded-xl " src={CDN_URL+res?.card?.info?.imageId} alt="food img" />
-                <button className="border !px-4 rounded-md bg-white text-green-800 absolute bottom-1 left-9 cursor-pointer ">Add +</button>
+                {showAddButton && 
+                <button className="border !px-4 rounded-md bg-white text-green-800 absolute bottom-1 left-9 cursor-pointer" onClick={()=>handleAddFeature(res)}  >Add +</button>
+                }
             </div>
             <div className=" !py-2 w-9/12">
                 <p className="text-md text-left">{res?.card?.info?.name} -</p>
@@ -21,6 +31,8 @@ const RestaurantItems = ({itemData})=>{
             <div className="text-left border-b border-gray-300">
                 <p className="text-gray-500 text-sm" >{res?.card?.info?.description}</p>
             </div>
+
+            {!showAddButton && <p>delete</p>}
 
 
             </div>
