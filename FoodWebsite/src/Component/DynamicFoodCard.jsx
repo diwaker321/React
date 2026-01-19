@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CDN_URL } from "../utils/constant";
 
 const DynamicFoodCard = ({resObj})=>{
+    console.log('resObj: ', resObj);
     
     return (
         <div className='mainCont w-[20.5vw] h-[72vh] rounded-xl '>
